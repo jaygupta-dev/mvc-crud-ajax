@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="bg-light registration">
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-6 border border-1 rounded rounded-3 bg-white p-4 my-3">
+            <label for="name">Name</label><input type="text" class="form-control" id="name" />
+            <label for="email">Email</label><input type="email" class="form-control" id="email" />
+            <label for="mobile">Mobile</label><input type="number" class="form-control" id="mobile" />
+            <label for="college">College</label>
+            <select class="form-control" id="college">
+
+                <option>--Select college--</option>
+                <option>FGIET Raebareli</option>
+                <option>MMIT Maharajganj</option>
+                <option>IET Lucknow</option>
+                <option>BBD Lucknow</option>
+                <option>Other</option>
+            </select>
+            <label for="course">Course</label><select class="form-control" id="course">
+
+                <option>--Select course--</option>
+                <option>M.Tech</option>
+                <option>B.Tech</option>
+                <option>MCA</option>
+                <option>BCA</option>
+                <option>Diploma</option>
+                <option>Other</option>
+
+            </select>
+            <label for="district">District</label><select class="form-control" id="district">
+
+                <option>--Select District--</option>
+                <option>Gorakhpur</option>
+                <option>Maharajganj</option>
+                <option>Raebareli</option>
+                <option>Lucknow</option>
+                <option>Other</option>
+            </select>
+            <label for="pincode">Pincode</label><input type="number" class="form-control" id="pincode" />
+            <button class="w-100 btn btn-outline-danger mt-3" id="registerbtn">Register</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#registerbtn").click(function () {
+            let name = $("#name").val();
+            let email = $("#email").val();
+            let mobile = $("#mobile").val();
+            let college = $("#college").val();
+            let course = $("#course").val();
+            let district = $("#district").val();
+            let pincode = $("#pincode").val();
+            $.ajax({
+                type: 'GET',
+                url: '/Home/AddDetails',
+                data: { 'name': name, 'email': email, 'mobile': mobile, 'college': college, 'course': course, 'district': district, 'pincode': pincode },
+                success: function () {
+                    alert("successfully registered")
+                    $("#name").val('');
+                    $("#email").val('');
+                    $("#mobile").val('');
+                    $("#college").val('');
+                    $("#course").val('');
+                    $("#district").val('');
+                    $("#pincode").val('');
+                    location.href = "/Home/About"
+                },
+                error: function () {
+                    alert("error occurred");
+                }
+            });
+        });
+    });
+</script>
